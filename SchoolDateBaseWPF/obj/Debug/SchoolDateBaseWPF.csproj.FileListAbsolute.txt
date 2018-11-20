@@ -1,0 +1,17 @@
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\bin\Debug\SchoolDateBaseWPF.exe.config
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\bin\Debug\SchoolDateBaseWPF.exe
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\bin\Debug\SchoolDateBaseWPF.pdb
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\SchoolDateBaseWPF.csprojAssemblyReference.cache
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\MainWindow.g.cs
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\App.g.cs
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\SchoolDateBaseWPF_MarkupCompile.cache
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\SchoolDateBaseWPF_MarkupCompile.lref
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\MainWindow.baml
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\SchoolDateBaseWPF.g.resources
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\SchoolDateBaseWPF.Properties.Resources.resources
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\SchoolDateBaseWPF.csproj.GenerateResource.cache
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\SchoolDateBaseWPF.csproj.CoreCompileInputs.cache
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\SchoolDateBaseWPF.exe
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\SchoolDateBaseWPF.pdb
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\CreateWindow.g.cs
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\CreateWindow.baml

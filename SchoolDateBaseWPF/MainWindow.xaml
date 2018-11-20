@@ -1,0 +1,60 @@
+﻿<Window x:Class="SchoolDateBaseWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolDateBaseWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid x:Name="rightGrid" HorizontalAlignment="Left" Width="790"  Height="450">
+
+
+
+        <Button x:Name="buttonShowStudents" Content="Students" HorizontalAlignment="Left" Height="43" Margin="5,68,0,0" VerticalAlignment="Top" Width="180" Click="buttonShowStudents_Click" Grid.Column="0"/>
+        <Button x:Name="buttonShowTeacher" Content="Teacher" HorizontalAlignment="Left" Height="49" Margin="5,133,0,0" VerticalAlignment="Top" Width="180" Click="buttonShowTeacher_Click" Grid.Column="0"/>
+        <Button x:Name="buttonShowPerfomance" Content="Performance" HorizontalAlignment="Left" Height="49" Margin="5,201,0,0" VerticalAlignment="Top" Width="180" Click="buttonShowPerformance_Click" Grid.Column="0"/>
+
+
+        <Grid x:Name="gridRightContentStudents" HorizontalAlignment="Left" Height="407" Margin="239,10,0,0" VerticalAlignment="Top" Width="551">
+            <DataGrid x:Name="dataGridRigthContentStudents" HorizontalAlignment="Left" Height="282" VerticalAlignment="Top" Width="522" AutoGenerateColumns="False" >
+                <DataGrid.Columns >
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding FullName}" Header="FullName" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Class}" Header="Class" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Button x:Name="buttonCreateStudent" Content="Create Student" Margin="0,345,345,16" Click="createStudent_Click" />
+            <Button x:Name="buttonDeleteStudent" Content="Delete Student" HorizontalAlignment="Left" Margin="303,345,0,0" VerticalAlignment="Top" Width="219" Height="46" Click="buttonDeleteStudent_Click"/>
+            <TextBox x:Name="textBoxIdDelete" HorizontalAlignment="Left" Height="27" Margin="380,313,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142"/>
+            <Label Content="ID:" HorizontalAlignment="Left" Height="27" Margin="303,313,0,0" VerticalAlignment="Top" Width="92"/>
+            <Label x:Name="testlabel" Content="Label" HorizontalAlignment="Left" Height="21" Margin="303,287,0,0" VerticalAlignment="Top" Width="219"/>
+        </Grid>
+        <Grid x:Name="gridRightContentTeachers" Visibility="Hidden" HorizontalAlignment="Left" Height="407" Margin="239,10,0,0" VerticalAlignment="Top" Width="551" >
+            <DataGrid x:Name="dataGridRigthContentTechers"  HorizontalAlignment="Left" Height="282" VerticalAlignment="Top" Width="522" AutoGenerateColumns="False" >
+                <DataGrid.Columns >
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding FullName}" Header="FullName" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Subject}" Header="Subject" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Class}" Header="Class" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid x:Name="gridRightContentPerformance" Visibility="Hidden" HorizontalAlignment="Left" Height="407" Margin="239,10,0,0" VerticalAlignment="Top" Width="551">
+            <DataGrid x:Name="dataGridRigthContentPerformance"  HorizontalAlignment="Left" Height="282" VerticalAlignment="Top" Width="522"  AutoGenerateColumns="False">
+                <DataGrid.Columns >
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding NameStudent}" Header="NameStudent" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Subject1}" Header="Subject1" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Subject2}" Header="Subject2" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Subject3}" Header="Subject3" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+        </Grid>
+
+
+
+    </Grid>
+</Window>
