@@ -46,7 +46,7 @@
             <Label Content="ID:" HorizontalAlignment="Left" Height="27" Margin="303,313,0,0" VerticalAlignment="Top" Width="92"/>
             <Label x:Name="testlabelteacher" Content="Label" HorizontalAlignment="Left" Height="21" Margin="303,287,0,0" VerticalAlignment="Top" Width="219"/>
         </Grid>
-        <Grid x:Name="gridRightContentPerformance" Visibility="Hidden" HorizontalAlignment="Left" Height="407" Margin="239,10,0,0" VerticalAlignment="Top" Width="551">
+        <Grid x:Name="gridRightContentPerformance"  HorizontalAlignment="Left" Height="407" Margin="239,10,0,0" VerticalAlignment="Top" Width="551">
             <DataGrid x:Name="dataGridRigthContentPerformance"  HorizontalAlignment="Left" Height="282" VerticalAlignment="Top" Width="522"  AutoGenerateColumns="False">
                 <DataGrid.Columns >
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="100"/>
@@ -57,8 +57,21 @@
                 </DataGrid.Columns>
             </DataGrid>
 
+            <Label Content="Maths" HorizontalAlignment="Left" Margin="20,319,0,0" VerticalAlignment="Top" Width="50"/>
+            <Label Content="Physics" HorizontalAlignment="Left" Margin="20,345,0,0" VerticalAlignment="Top"/>
+            <Label Content="Biology" HorizontalAlignment="Left" Margin="20,371,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBoxSetMarkMaths" HorizontalAlignment="Left" Height="23" Margin="138,322,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="textBoxSetMarkPhysics" HorizontalAlignment="Left" Height="23" Margin="138,348,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="textBoxSetMarkBiology" HorizontalAlignment="Left" Height="23" Margin="138,374,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <Button x:Name="buttonSetMark" Content="Set Mark" HorizontalAlignment="Left" Height="97" Margin="384,300,0,0" VerticalAlignment="Top" Width="138" Click="buttonSetMark_Click"/>
+            <Label Content="Id" HorizontalAlignment="Left" Margin="20,289,0,0" VerticalAlignment="Top" Width="50"/>
+            <TextBox x:Name="textBoxIdStudent" HorizontalAlignment="Left" Height="23" Margin="138,292,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+
+
+
 
         </Grid>
+     
 
 
 

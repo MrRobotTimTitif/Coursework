@@ -227,5 +227,25 @@ namespace SchoolDateBaseWPF
             }
           
         }
+
+        private void buttonSetMark_Click(object sender, RoutedEventArgs e)
+        {
+            string sql = "UPDATE TablePerformance SET Subject1 = @Maths,Subject2 = @Physics,Subject3=@Biology WHERE Id=@ID";
+            connection.Open();
+            using (SqlCommand cmd = new SqlCommand(sql, connection))
+            {
+
+
+                cmd.Parameters.AddWithValue("@Id", textBoxIdStudent.Text);
+
+                cmd.Parameters.AddWithValue("@Maths", textBoxSetMarkMaths.Text);
+                cmd.Parameters.AddWithValue("@Physics", textBoxSetMarkPhysics.Text);
+                cmd.Parameters.AddWithValue("@Biology", textBoxSetMarkBiology.Text);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+            connection.Close();
+            testlabelteacher.Content = "";
+        }
     }
 }
