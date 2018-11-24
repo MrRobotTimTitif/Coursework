@@ -1,0 +1,27 @@
+﻿<Window x:Class="SchoolDateBaseWPF.CreateTeacherWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolDateBaseWPF"
+        mc:Ignorable="d"
+        Title="CreateTeacherWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Height="46" Margin="10,364,0,0" VerticalAlignment="Top" Width="215" Click="cancelButton_Click"/>
+        <Label  Content="Create Teacher"    HorizontalAlignment="Center" Height="53" Margin="198,10,176.6,0" VerticalAlignment="Top" Width="419" FontSize="36" FlowDirection="RightToLeft" HorizontalContentAlignment="Center"/>
+        <Label Content="First Name" HorizontalAlignment="Left" Height="45" Margin="61,80,0,0" VerticalAlignment="Top" Width="102"/>
+        <Label Content="Last Name" HorizontalAlignment="Left" Height="60" Margin="61,130,0,0" VerticalAlignment="Top" Width="102"/>
+        <Label Content="ClassRoom" HorizontalAlignment="Left" Height="25" Margin="61,222,0,0" VerticalAlignment="Top" Width="84"/>
+        <Label Content="Subject" HorizontalAlignment="Left" Height="25" Margin="61,296,0,0" VerticalAlignment="Top" Width="84"/>
+        
+        <Label x:Name="labelCreateError" Visibility="Hidden" Content="" HorizontalAlignment="Left" Height="40" Margin="469,304,0,0" VerticalAlignment="Top" Width="315"/>
+        
+        <TextBox x:Name="textBoxFirstName" HorizontalAlignment="Left" Height="45" Margin="198,80,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="210" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="textBoxLastName"  HorizontalAlignment="Left" Height="60" Margin="198,130,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="210" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="textBoxClassRoom"   HorizontalAlignment="Left" Height="55" Margin="198,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="210" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="textBoxSubject"   HorizontalAlignment="Left" Height="55" Margin="198,290,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="210" VerticalContentAlignment="Center"/>
+
+        <Button Content="Create Teacher" HorizontalAlignment="Left" Height="61" Margin="469,349,0,0" VerticalAlignment="Top" Width="315" Click="Button_Click" />
+
+    </Grid>
+</Window>

@@ -55,14 +55,13 @@ namespace SchoolDateBaseWPF
     public partial class MainWindow : Window
     {
 
-        string connectionString;
+  
         SqlConnection connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=SchoolDataBase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-        //SqlConnection connection;
+
         public MainWindow()
         {
             InitializeComponent();
-            connectionString = ConfigurationManager.ConnectionStrings["SchoolDateBaseWPF.Properties.Settings.ShoolDateBaseConnectionString"].ConnectionString;
-
+        
         }
 
         private void createStudent_Click(object sender, RoutedEventArgs e)
@@ -113,10 +112,7 @@ namespace SchoolDateBaseWPF
                 connection.Open();
                 DataTable tableStudets = new DataTable();
                 adapter.Fill(tableStudets);
-                dataGridRigthContentStudents.ItemsSource = tableStudets.DefaultView;
-
-
-                //dataGridRigthContentStudents.ItemsSource = tableStudets.;
+                dataGridRigthContentStudents.ItemsSource = tableStudets.DefaultView;             
                 connection.Close();
             }
         }
@@ -137,8 +133,7 @@ namespace SchoolDateBaseWPF
             {
                 connection.Open();
                 DataTable tableTeachers = new DataTable();
-                adapter.Fill(tableTeachers);
-                int i = tableTeachers.Columns.Count;
+                adapter.Fill(tableTeachers);              
                 dataGridRigthContentTechers.ItemsSource = tableTeachers.DefaultView;
                 connection.Close();
             }
@@ -155,7 +150,6 @@ namespace SchoolDateBaseWPF
                 DataTable tablePerformance = new DataTable();
                 adapter.Fill(tablePerformance);
                 dataGridRigthContentPerformance.ItemsSource = tablePerformance.DefaultView;
-
                 connection.Close();
 
             }
@@ -178,11 +172,16 @@ namespace SchoolDateBaseWPF
                 //using (connection = new SqlConnection(connectionString))
                 using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
-
-
                     cmd.Parameters.AddWithValue("@Id", textBoxIdDelete.Text);
                     cmd.ExecuteNonQuery();
-                    connection.Close();
+              
+                }
+                sql = "DELETE  FROM TablePerformance WHERE Id=@ID";
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Id", textBoxIdDelete.Text);
+                    cmd.ExecuteNonQuery();
+                 
                 }
                 connection.Close();
                 testlabel.Content = "";
@@ -194,6 +193,39 @@ namespace SchoolDateBaseWPF
                     
         }
 
-      
+        private void buttonCreateTeacher_Click(object sender, RoutedEventArgs e)
+        {
+            CreateTeacherWindow createTeacherWindow = new CreateTeacherWindow(connection);
+            createTeacherWindow.Show();
+            Close();
+        }
+
+        private void buttonDeleteTeacher_Click(object sender, RoutedEventArgs e)
+        {
+            bool success = Int32.TryParse(textBoxIdDeleteTeacher.Text, out int number);
+
+
+            if (textBoxIdDeleteTeacher.Text != " " && success == true)
+            {
+
+                string sql = "DELETE  FROM TableTeachers WHERE Id=@ID";
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
+                {
+
+
+                    cmd.Parameters.AddWithValue("@Id", textBoxIdDeleteTeacher.Text);
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                connection.Close();
+                testlabelteacher.Content = "";
+            }
+            else
+            {
+                testlabelteacher.Content = "Error!!!";
+            }
+          
+        }
     }
 }

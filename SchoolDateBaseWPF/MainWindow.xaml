@@ -15,7 +15,7 @@
         <Button x:Name="buttonShowPerfomance" Content="Performance" HorizontalAlignment="Left" Height="49" Margin="5,201,0,0" VerticalAlignment="Top" Width="180" Click="buttonShowPerformance_Click" Grid.Column="0"/>
 
 
-        <Grid x:Name="gridRightContentStudents" HorizontalAlignment="Left" Height="407" Margin="239,10,0,0" VerticalAlignment="Top" Width="551">
+        <Grid x:Name="gridRightContentStudents" Visibility="Hidden" HorizontalAlignment="Left" Height="407" Margin="239,10,0,0" VerticalAlignment="Top" Width="551">
             <DataGrid x:Name="dataGridRigthContentStudents" HorizontalAlignment="Left" Height="282" VerticalAlignment="Top" Width="522" AutoGenerateColumns="False" >
                 <DataGrid.Columns >
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="100"/>
@@ -36,9 +36,15 @@
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="100"/>
                     <DataGridTextColumn Binding="{Binding FullName}" Header="FullName" Width="*"/>
                     <DataGridTextColumn Binding="{Binding Subject}" Header="Subject" Width="*"/>
-                    <DataGridTextColumn Binding="{Binding Class}" Header="Class" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Classroom}" Header="ClassRoom" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
+
+            <Button x:Name="buttonCreateTeacher" Content="Create Teacher" Margin="0,345,345,16" Click="buttonCreateTeacher_Click" />
+            <Button x:Name="buttonDeleteTeacher" Content="Delete Teacher" HorizontalAlignment="Left" Margin="303,345,0,0" VerticalAlignment="Top" Width="219" Height="46" Click="buttonDeleteTeacher_Click" />
+            <TextBox x:Name="textBoxIdDeleteTeacher" HorizontalAlignment="Left" Height="27" Margin="380,313,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142"/>
+            <Label Content="ID:" HorizontalAlignment="Left" Height="27" Margin="303,313,0,0" VerticalAlignment="Top" Width="92"/>
+            <Label x:Name="testlabelteacher" Content="Label" HorizontalAlignment="Left" Height="21" Margin="303,287,0,0" VerticalAlignment="Top" Width="219"/>
         </Grid>
         <Grid x:Name="gridRightContentPerformance" Visibility="Hidden" HorizontalAlignment="Left" Height="407" Margin="239,10,0,0" VerticalAlignment="Top" Width="551">
             <DataGrid x:Name="dataGridRigthContentPerformance"  HorizontalAlignment="Left" Height="282" VerticalAlignment="Top" Width="522"  AutoGenerateColumns="False">

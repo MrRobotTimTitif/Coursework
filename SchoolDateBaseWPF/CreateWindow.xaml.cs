@@ -39,11 +39,22 @@ namespace SchoolDateBaseWPF
         {
             
             if (textBoxFirstName.Text != "" && textBoxLastName.Text != "" && textBoxClass.Text != "")
-            {               
+            {              
+                
+
+
+
+
                 string sql = "INSERT INTO TableStudents" +
-               $"(FullName,Class) Values(@FullName, @Class)";
+                $"(FullName,Class) Values(@FullName, @Class)";
                 connection.Open();
              
+
+
+
+
+
+
                 using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {               
                     cmd.Parameters.AddWithValue("@FullName", $"{ textBoxFirstName.Text}" +" "+ $"{textBoxLastName.Text}");
@@ -56,11 +67,12 @@ namespace SchoolDateBaseWPF
 
 
                 sql = "INSERT INTO TablePerformance" +
-                $"(NameStudent) Values(@NameStudent)";
+                $"(Id,NameStudent) Values(@Id,@NameStudent)";
               
 
                 using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
+                    cmd.Parameters.AddWithValue("@Id", $"");
                     cmd.Parameters.AddWithValue("@NameStudent", $"{ textBoxFirstName.Text}" + " " + $"{textBoxLastName.Text}");
 
                     cmd.ExecuteNonQuery();
@@ -73,6 +85,11 @@ namespace SchoolDateBaseWPF
             }
             connection.Close();
 
+
+        }
+
+        private void buttonCreateStudent_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
