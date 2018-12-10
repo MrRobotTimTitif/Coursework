@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Data.Sql;
 using System.Data.SqlClient;
+using System.Data.Linq;
+using System.Text.RegularExpressions;
 
 namespace SchoolDateBaseWPF
 {
@@ -26,36 +17,75 @@ namespace SchoolDateBaseWPF
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        {      
+            textBoxFirstNameInCreateTeacherWindow.BorderBrush = (textBoxFirstNameInCreateTeacherWindow.Text != "") ? Brushes.Black : Brushes.Red;
+            textBoxLastNameInCreateTeacherWindow.BorderBrush = (textBoxLastNameInCreateTeacherWindow.Text != "") ? Brushes.Black : Brushes.Red;
+            textBoxClassRoomInCreateTeacherWindow.BorderBrush = (textBoxClassRoomInCreateTeacherWindow.Text != "") ? Brushes.Black : Brushes.Red;        
 
-            if (textBoxFirstName.Text != "" && textBoxLastName.Text != "" && textBoxClassRoom.Text != "")
+            if (textBoxFirstNameInCreateTeacherWindow.Text != "" && textBoxLastNameInCreateTeacherWindow.Text != "" && textBoxClassRoomInCreateTeacherWindow.Text != "" && comboBoxSubgectOnCreateTeacher.Text != "")
             {
-                string sql = "INSERT INTO TableTeachers" +
-               $"(FullName,Subject,ClassRoom) Values(@FullName,@Subject, @ClassRoom)";
-                connection.Open();
+                DataContext dataContext = new DataContext(connection);
 
-                using (SqlCommand cmd = new SqlCommand(sql, connection))
+                //Table<MainWindow.TableTeachers> tableStudents = dataContext.GetTable<MainWindow.TableTeachers>();
+
+                MainWindow.TableTeachers newTeacher = new MainWindow.TableTeachers
                 {
-                    cmd.Parameters.AddWithValue("@FullName", $"{ textBoxFirstName.Text}" + " " + $"{textBoxLastName.Text}");
-                    cmd.Parameters.AddWithValue("@Subject", $"{ textBoxSubject.Text}");
-                    cmd.Parameters.AddWithValue("@ClassRoom", $"{ Convert.ToInt32(textBoxClassRoom.Text)}");
-                    cmd.ExecuteNonQuery();
-                }
-
-                labelCreateError.Visibility = Visibility;
+                    FullName = textBoxFirstNameInCreateTeacherWindow.Text + " "
+                    + textBoxLastNameInCreateTeacherWindow.Text,
+                    Classroom = Convert.ToInt32(textBoxClassRoomInCreateTeacherWindow.Text),
+                    Subject = comboBoxSubgectOnCreateTeacher.Text
      
+                };
 
+                dataContext.GetTable<MainWindow.TableTeachers>().InsertOnSubmit(newTeacher);
+                dataContext.SubmitChanges();
 
+                labelCreateErrorTeacher.Visibility = Visibility;
+                labelCreateErrorTeacher.Content = "teacher successfully added";
             }
-            connection.Close();
+            else
+            {
+                labelCreateErrorTeacher.Visibility = Visibility;
+                labelCreateErrorTeacher.Content = "need to fill in all fields";
+            }
         }
-
+       
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
 
             Close();
+        }
+
+        private void textBoxFirstNameInCreateTeacherWindow_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            string inputSymbol = e.Text.ToString();
+
+            if (!Regex.Match(inputSymbol, @"[а-я],[a-z]|\.|,").Success)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxLastNameInCreateTeacherWindow_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            string inputSymbol = e.Text.ToString();
+
+            if (!Regex.Match(inputSymbol, @"[а-я][a-z]|\.|,").Success)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxClassRoomInCreateTeacherWindow_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            string inputSymbol = e.Text.ToString();
+
+            if (!Regex.Match(inputSymbol, @"[0-9]|\.|,").Success)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

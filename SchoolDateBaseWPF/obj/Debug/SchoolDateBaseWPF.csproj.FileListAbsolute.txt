@@ -13,7 +13,7 @@ C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\School
 C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\SchoolDateBaseWPF.csproj.CoreCompileInputs.cache
 C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\SchoolDateBaseWPF.exe
 C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\SchoolDateBaseWPF.pdb
-C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\CreateWindow.g.cs
-C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\CreateWindow.baml
 C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\CreateTeacherWindow.g.cs
 C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\CreateTeacherWindow.baml
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\CreateStudentWindow.g.cs
+C:\Users\timof\source\repos\SchoolDateBaseWPF\SchoolDateBaseWPF\obj\Debug\CreateStudentWindow.baml

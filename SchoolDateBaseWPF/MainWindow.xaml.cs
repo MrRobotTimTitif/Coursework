@@ -1,196 +1,115 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Data.SqlClient;
-using System.Configuration;
-using System.Data.Sql;
 using System.Data;
-
+using System.Data.Linq;
+using System.Data.Linq.Mapping;
+using System.Text.RegularExpressions;
 
 namespace SchoolDateBaseWPF
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// 
-    /// 
-    /*
-    Требуется разработать программную систему, предназначенную для завуча школы. Она должна обеспечивать хранение сведений о каждом учителе, о предметах, которые он преподает, номере закрепленного за ним кабинета. Об учениках должны храниться следующие сведения: фамилия и имя, в каком классе учится, какую оценку имеет в текущей четверти по каждому предмету. Завуч должен иметь возможность добавить сведения о новом учителе или ученике, внести в базу данных четвертные оценки учеников каждого класса по каждому предмету, удалить данные об уволившемся учителе и отчисленном из школы ученике.  
-    Учитель Ученик  Успеваемость
-    Ключ    Ключ    Ключ
-    ФИО     Ученик  Ученик
-    Предмет     Класс Предмет 1 
-    № кабинета Предмет 2 
-           Предмет 3 
-   Успеваемость задается числами от 2 до 5. Количество предметов может быть увеличено.
-   Должны быть созданы обобщенные списки: 
-•	Сведения об учителях.
-•	Сведения об учениках.
-•	Сведения об успеваемости.
-   Завучу могут потребоваться следующие сведения о текущем состоянии успеваемости: 
-•	Успеваемость по заданному предмету.
-•	Количество неуспевающих учеников по всем классам. 
-•	У какого учителя самая низкая успеваемость. 
-•	Средняя оценка по всем предметам в каждом классе. 
-•	Класс с самой высокой успеваемостью по всем предметам. 
-•	Класс с самой низкой успеваемостью по всем предметам. 
-   Завуч может выполнять следующие операции: 
-•	Записать в школу нового ученика.
-•	Отчислить из школы ученика. 
-
-
-   /// */
-
-    /// </summary>
     public partial class MainWindow : Window
     {
 
-  
         SqlConnection connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=SchoolDataBase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
         public MainWindow()
         {
-            InitializeComponent();
-        
-        }
-
-        private void createStudent_Click(object sender, RoutedEventArgs e)
-        {
-            CreateWindow createWindow = new CreateWindow(connection);
-            createWindow.Show();
-            Close();
-        }
-
-        #region testinOneWindow
-        //  if (textBoxFirstName.Text != "" && textBoxLastName.Text != "" && textBoxClass.Text != "")
-        //  {
-        //string sqlcommand = $"INSERT INTO TableStudents (FullName,Class) VALUES (N'{textBoxFirstName.Text + " " + textBoxLastName.Text}',N'{textBoxClass.Text}');";
-        // using 
-        //string sqlcommand = $"INSERT INTO TableStudents (FullName,Class) VALUES ('Rick','Hentai');";
-        //using (connection = new SqlConnection(connectionString))
-        //{
-        //        connection.Open();
-        //        SqlCommand sqlCommand = new SqlCommand(sqlcommand, connection);
-        //        sqlCommand.ExecuteNonQuery();
-        //        connection.Close();
-        //}
-        //   labelCreateError.Visibility = Visibility;
-        //  labelCreateError.Content = "student successfully added";
-        //  }
-        //  else
-        //  {
-        //     labelCreateError.Visibility = Visibility;
-        //     labelCreateError.Content = "need to fill in all fields";
-        //}
-
-
-        //CreateWindow createwindow = new CreateWindow(connectionString);
-        //createwindow.Show();
-        //Close();
-
-        #endregion
-
-        private void buttonShowStudents_Click(object sender, RoutedEventArgs e)
-        {
-            gridRightContentStudents.Visibility = Visibility.Visible;
-            gridRightContentTeachers.Visibility = Visibility.Hidden;
-            gridRightContentPerformance.Visibility = Visibility.Hidden;
-
-            using (SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM TableStudents", connection))
-            {
-
-                connection.Open();
-                DataTable tableStudets = new DataTable();
-                adapter.Fill(tableStudets);
-                dataGridRigthContentStudents.ItemsSource = tableStudets.DefaultView;             
-                connection.Close();
-            }
+            InitializeComponent();         
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            ShowStudents();
+            ShowTeachers();
+            ShowPerformance();
         }
 
-        private void buttonShowTeacher_Click(object sender, RoutedEventArgs e)
+        public void ShowStudents()
         {
-            gridRightContentStudents.Visibility = Visibility.Hidden;
-            gridRightContentTeachers.Visibility = Visibility.Visible;
-            gridRightContentPerformance.Visibility = Visibility.Hidden;
-
-            using (SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM TableTeachers", connection))
-
-            {
-                connection.Open();
-                DataTable tableTeachers = new DataTable();
-                adapter.Fill(tableTeachers);              
-                dataGridRigthContentTechers.ItemsSource = tableTeachers.DefaultView;
-                connection.Close();
-            }
+            DataContext dataContext = new DataContext(connection);
+            Table<TableStudents> tableStudents = dataContext.GetTable<TableStudents>();
+            dataGridRigthContentStudents.ItemsSource = tableStudents;
         }
-
-        private void buttonShowPerformance_Click(object sender, RoutedEventArgs e)
+        public void ShowTeachers()
         {
-            gridRightContentStudents.Visibility = Visibility.Hidden;
-            gridRightContentTeachers.Visibility = Visibility.Hidden;
-            gridRightContentPerformance.Visibility = Visibility.Visible;
-            using (SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM TablePerformance", connection))
-            {
-                connection.Open();
-                DataTable tablePerformance = new DataTable();
-                adapter.Fill(tablePerformance);
-                dataGridRigthContentPerformance.ItemsSource = tablePerformance.DefaultView;
-                connection.Close();
-
-            }
+            DataContext dataContext = new DataContext(connection);
+            Table<TableTeachers> tableTeachers = dataContext.GetTable<TableTeachers>();
+            dataGridRigthContentTechers.ItemsSource = tableTeachers;
+        }
+        public void ShowPerformance()
+        {
+            DataContext dataContext = new DataContext(connection);
+            Table<TablePerformance> tablePerformance = dataContext.GetTable<TablePerformance>();
+            dataGridPerformance.ItemsSource = tablePerformance;
         }
 
-        
-
+        private void createStudent_Click(object sender, RoutedEventArgs e)
+        {
+            CreateStudentWindow createWindow = new CreateStudentWindow(connection);
+            createWindow.Show();
+            Close();
+        }
+      
         private void buttonDeleteStudent_Click(object sender, RoutedEventArgs e)
         {
-
-
             bool success = Int32.TryParse(textBoxIdDelete.Text, out int number);
-
-
             if (textBoxIdDelete.Text != " " && success == true)
             {
-
-                string sql = "DELETE  FROM TableStudents WHERE Id=@ID";
-                connection.Open();
-                //using (connection = new SqlConnection(connectionString))
-                using (SqlCommand cmd = new SqlCommand(sql, connection))
-                {
-                    cmd.Parameters.AddWithValue("@Id", textBoxIdDelete.Text);
-                    cmd.ExecuteNonQuery();
+                DataContext dataContext = new DataContext(connection);
               
-                }
-                sql = "DELETE  FROM TablePerformance WHERE Id=@ID";
-                using (SqlCommand cmd = new SqlCommand(sql, connection))
+                var deleteStudent =from del in dataContext.GetTable<TableStudents>()
+                                        where del.Id == Convert.ToInt32(textBoxIdDelete.Text)
+                                        select del;
+                
+                foreach (var detail in deleteStudent)
                 {
-                    cmd.Parameters.AddWithValue("@Id", textBoxIdDelete.Text);
-                    cmd.ExecuteNonQuery();
-                 
+                    dataContext.GetTable<TableStudents>().DeleteOnSubmit(detail);
                 }
-                connection.Close();
-                testlabel.Content = "";
+                dataContext.SubmitChanges();
+
+                var deletePerformance = from del in dataContext.GetTable<TablePerformance>()
+                                         where del.Id == Convert.ToInt32(textBoxIdDelete.Text)
+                                         select del;
+
+                foreach (var detail in deletePerformance)
+                {
+                    dataContext.GetTable<TablePerformance>().DeleteOnSubmit(detail);
+                }
+                dataContext.SubmitChanges();
+
+                testlabel.Content = "Deleted";
+                ShowStudents();
+                ShowPerformance();
+                #region sqlDeleteStud
+
+                //string sql = "DELETE  FROM TableStudents WHERE Id=@ID";
+                //connection.Open();
+                //using (SqlCommand cmd = new SqlCommand(sql, connection))
+                //{
+                //    cmd.Parameters.AddWithValue("@Id", textBoxIdDelete.Text);
+                //    cmd.ExecuteNonQuery();
+
+                //}
+                //sql = "DELETE  FROM TablePerformance WHERE Id=@ID";
+                //using (SqlCommand cmd = new SqlCommand(sql, connection))
+                //{
+                //    cmd.Parameters.AddWithValue("@Id", textBoxIdDelete.Text);
+                //    cmd.ExecuteNonQuery();
+
+                //}
+                //connection.Close();
+                #endregion
+
             }
             else
             {
                 testlabel.Content = "Error!!!";
             }
-                    
+
         }
 
         private void buttonCreateTeacher_Click(object sender, RoutedEventArgs e)
@@ -204,48 +123,402 @@ namespace SchoolDateBaseWPF
         {
             bool success = Int32.TryParse(textBoxIdDeleteTeacher.Text, out int number);
 
-
             if (textBoxIdDeleteTeacher.Text != " " && success == true)
             {
+                #region sqlTeavherDel
+                //string sql = "DELETE  FROM TableTeachers WHERE Id=@ID";
+                //connection.Open();
+                //using (SqlCommand cmd = new SqlCommand(sql, connection))
+                //{
+                //    cmd.Parameters.AddWithValue("@Id", textBoxIdDeleteTeacher.Text);
+                //    cmd.ExecuteNonQuery();
+                //    connection.Close();
+                //}
+                //connection.Close();
+                //testlabelteacher.Content = "";
+                #endregion
 
-                string sql = "DELETE  FROM TableTeachers WHERE Id=@ID";
-                connection.Open();
-                using (SqlCommand cmd = new SqlCommand(sql, connection))
+                DataContext dataContext = new DataContext(connection);
+
+                var deleteTeachers = from del in dataContext.GetTable<TableTeachers>()
+                                    where del.Id == Convert.ToInt32(textBoxIdDeleteTeacher.Text)
+                                    select del;
+
+                foreach (var detail in deleteTeachers)
                 {
-
-
-                    cmd.Parameters.AddWithValue("@Id", textBoxIdDeleteTeacher.Text);
-                    cmd.ExecuteNonQuery();
-                    connection.Close();
+                    dataContext.GetTable<TableTeachers>().DeleteOnSubmit(detail);
                 }
-                connection.Close();
-                testlabelteacher.Content = "";
+                dataContext.SubmitChanges();
+                testlabelteacher.Content = "Deleted";
+                ShowTeachers();
             }
             else
             {
                 testlabelteacher.Content = "Error!!!";
             }
-          
+
         }
 
         private void buttonSetMark_Click(object sender, RoutedEventArgs e)
         {
-            string sql = "UPDATE TablePerformance SET Subject1 = @Maths,Subject2 = @Physics,Subject3=@Biology WHERE Id=@ID";
+            string subjectString1, subjectString2, subjectString3;
+
+            subjectString1 = (textBoxSetMarkMaths.Text != "") ? "Maths = @Maths" : "Maths = Maths";
+            subjectString2 = (textBoxSetMarkPhysics.Text != "") ? "Physics = @Physics" : "Physics = Physics";
+            subjectString3 = (textBoxSetMarkBiology.Text != "") ? "Biology = @Biology" : "Biology = Biology";
+
+
+            string sql = $"UPDATE TablePerformance SET {subjectString1},{subjectString2},{subjectString3} WHERE Id=@ID";
+
             connection.Open();
             using (SqlCommand cmd = new SqlCommand(sql, connection))
             {
 
-
                 cmd.Parameters.AddWithValue("@Id", textBoxIdStudent.Text);
-
                 cmd.Parameters.AddWithValue("@Maths", textBoxSetMarkMaths.Text);
                 cmd.Parameters.AddWithValue("@Physics", textBoxSetMarkPhysics.Text);
                 cmd.Parameters.AddWithValue("@Biology", textBoxSetMarkBiology.Text);
+
                 cmd.ExecuteNonQuery();
-                connection.Close();
             }
             connection.Close();
-            testlabelteacher.Content = "";
+            ShowPerformance(); 
+        }
+
+        [Table(Name = "TableStudents")]
+        public class TableStudents
+        {
+            [Column(IsPrimaryKey = true, IsDbGenerated = true)]
+            public int Id { get; set; }
+            [Column]
+            public string FullName { get; set; }
+            [Column]
+            public string Class { get; set; }
+        }      
+        [Table(Name = "TableTeachers")]
+        public class TableTeachers
+        {
+            [Column(IsPrimaryKey = true, IsDbGenerated = true)]
+            public int Id { get; set; }
+            [Column]
+            public string FullName { get; set; }
+            [Column]
+            public string Subject { get; set; }
+            [Column]
+            public int Classroom { get; set; }
+
+        }
+        [Table(Name = "TablePerformance")]
+        public class TablePerformance
+        {
+            [Column(IsPrimaryKey = true)]
+            public int Id { get; set; }
+            [Column]
+            public string NameStudent { get; set; }
+            [Column]
+            public int Maths { get; set; }
+            [Column]
+            public int Physics { get; set; }
+            [Column]
+            public int Biology { get; set; }
+
+        }
+
+        private void buttonPoPredmety_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext dataContext = new DataContext(connection);          
+            if (comboBoxSubgect.Text == "Maths")
+            {
+
+                Table<TablePerformance> tablePerformance = dataContext.GetTable<TablePerformance>();
+                var result = from x in dataContext.GetTable<TablePerformance>()
+                             select new { x.NameStudent, x.Maths };
+                dataGridFilterPerformance.ItemsSource = result;
+            }
+            if (comboBoxSubgect.Text == "Physics")
+            {
+                Table<TablePerformance> tablePerformance = dataContext.GetTable<TablePerformance>();
+               var result = from x in dataContext.GetTable<TablePerformance>()
+                         select new { x.NameStudent, x.Physics };
+                dataGridFilterPerformance.ItemsSource = result;
+            }
+            if (comboBoxSubgect.Text == "Biology")
+            {
+                Table<TablePerformance> tablePerformance = dataContext.GetTable<TablePerformance>();
+                var result = from x in dataContext.GetTable<TablePerformance>()
+                             select new { x.NameStudent, x.Biology };
+                dataGridFilterPerformance.ItemsSource = result;
+            }     
+        }    
+        private void textBoxIdStudent_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+                e.Handled = validationNumber(e);
+           
+        }
+
+        private void buttonLowSkillOnSubject_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext dataContext = new DataContext(connection);
+          
+            Table<TablePerformance> tablePerformance = dataContext.GetTable<TablePerformance>();
+            var result = from x in dataContext.GetTable<TablePerformance>()
+                         where x.Maths < 3 || x.Physics < 3 || x.Biology < 3
+                         select x;
+            dataGridFilterPerformance.ItemsSource = result;
+
+
+        }
+
+
+
+
+
+        private void textBoxSetMarkMaths_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            setMarkText(e);
+        }
+
+        private void textBoxSetMarkPhysics_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            setMarkText(e);
+        }
+
+        private void textBoxSetMarkBiology_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            setMarkText(e);
+        }
+
+        private void setMarkText(TextCompositionEventArgs e)
+        { 
+                e.Handled = validationNumber(e);           
+        }
+
+        private void buttonLowMarksSubject_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext dataContext = new DataContext(connection);
+   
+            Table<TablePerformance> tablePerformance = dataContext.GetTable<TablePerformance>();
+            var resultOnMatsh = from x in dataContext.GetTable<TablePerformance>()
+                                select x.Maths;
+            int marksMaths = 0;
+            foreach (var o in resultOnMatsh)
+            {
+                marksMaths += Convert.ToInt32(o);
+            }
+
+            var resultOnPhysics = from x in dataContext.GetTable<TablePerformance>()
+                                  select x.Physics;
+            int marksPhysics = 0;
+            foreach (var o in resultOnPhysics)
+            {
+                marksPhysics += Convert.ToInt32(o);
+            }
+            var resultOnBiology = from x in dataContext.GetTable<TablePerformance>()
+                                  select x.Biology;
+            int marksBiology = 0;
+            foreach (var o in resultOnBiology)
+            {
+                marksBiology += Convert.ToInt32(o);
+            }
+
+           
+            string subjectVariant = "";
+            if (marksMaths < marksPhysics && marksMaths < marksBiology)
+            {
+                subjectVariant = "Maths";
+            };
+            if (marksPhysics < marksMaths && marksPhysics < marksBiology)
+            {
+                subjectVariant = "Physics";
+            };
+            if (marksBiology < marksMaths && marksBiology < marksPhysics)
+            {
+                subjectVariant = "Biology";
+            };
+
+            var resultTeacher = from x in dataContext.GetTable<TableTeachers>()
+                                where x.Subject == Convert.ToString(subjectVariant)
+                                select new {x.FullName,x.Subject};
+
+            dataGridFilterPerformance.ItemsSource = resultTeacher;
+
+        }
+
+        private void buttonAverageMarks_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext dataContext = new DataContext(connection);
+           
+            var resultA = from x in dataContext.GetTable<TableStudents>()
+                          where x.Class == comboBoxAverageMarksInClass.Text
+                          select new {x.Id};
+
+            var marksA = from x in dataContext.GetTable<TablePerformance>()
+                         select new {x.Id, x.Maths, x.Physics, x.Biology };
+            
+            double averageA = 0;
+            int countA = 0;
+            foreach (var a in resultA)
+            {
+                foreach (var o in marksA)
+                {
+                    if (o.Id == a.Id)
+                    {
+                        averageA += Convert.ToDouble(o.Maths + o.Physics + o.Biology) / 3;
+                        countA++;
+                    }
+                }
+            }
+           
+            labelAverageMarksInClass.Content= String.Format("{0,12:F4}", averageA = Convert.ToDouble(averageA / countA));
+
+      
+        }
+
+        private void buttonBestClassOnMark_Click(object sender, RoutedEventArgs e)
+        {
+            GetMarkClass("Best");
+        }
+
+        private void buttonTheWorstClassOnMark_Click(object sender, RoutedEventArgs e)
+        {
+            GetMarkClass("Worst");
+        }
+
+        public void GetMarkClass(string variant)
+        {
+            DataContext dataContext = new DataContext(connection);
+
+            var resultA = from x in dataContext.GetTable<TableStudents>()
+                          where x.Class == "A"
+                          select new { x.Id };
+            var resultB = from x in dataContext.GetTable<TableStudents>()
+                          where x.Class == "B"
+                          select new { x.Id };
+            var resultC = from x in dataContext.GetTable<TableStudents>()
+                          where x.Class == "C"
+                          select new { x.Id };
+            var resultD = from x in dataContext.GetTable<TableStudents>()
+                          where x.Class == "D"
+                          select new { x.Id };
+            var resultF = from x in dataContext.GetTable<TableStudents>()
+                          where x.Class == "F"
+                          select new { x.Id };
+
+
+            var marksAll = from x in dataContext.GetTable<TablePerformance>()
+                           select new { x.Id, x.Maths, x.Physics, x.Biology };
+
+            int summMarkA = 0;
+            int summMarkB = 0;
+            int summMarkC = 0;
+            int summMarkD = 0;
+            int summMarkF = 0;
+   
+           
+            foreach (var a in resultA)
+            {
+                foreach (var o in marksAll)
+                {
+                    if (o.Id == a.Id)
+                    {
+                        summMarkA += o.Maths + o.Physics + o.Biology;
+                    }
+                }
+            }
+            foreach (var a in resultB)
+            {
+                foreach (var o in marksAll)
+                {
+                    if (o.Id == a.Id)
+                    {
+                        summMarkB += o.Maths + o.Physics + o.Biology;
+                    }
+                }
+            }
+            foreach (var a in resultC)
+            {
+                foreach (var o in marksAll)
+                {
+                    if (o.Id == a.Id)
+                    {
+                        summMarkC += o.Maths + o.Physics + o.Biology;
+                    }
+                }
+            }
+            foreach (var a in resultD)
+            {
+                foreach (var o in marksAll)
+                {
+                    if (o.Id == a.Id)
+                    {
+                        summMarkD += o.Maths + o.Physics + o.Biology;
+                    }
+                }
+            }
+            foreach (var a in resultF)
+            {
+                foreach (var o in marksAll)
+                {
+                    if (o.Id == a.Id)
+                    {
+                        summMarkF += o.Maths + o.Physics + o.Biology;
+                    }
+                }
+            }
+            int[] massMarks = new int[5] { summMarkA, summMarkB, summMarkC, summMarkD, summMarkF };
+            string[] massClassNumber = new string[5] { "A", "B", "C", "D", "F" };
+           
+            int max = massMarks[0];
+            int min = massMarks[0];
+            if (variant == "Best")
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    if (massMarks[i] > max)
+                    {
+                        max = massMarks[i];
+                        labelBestClassOnMark.Content = massClassNumber[i];
+                    }
+                }
+            }
+            if (variant == "Worst")
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    if (massMarks[i] < min)
+                    {
+                        min = massMarks[i];
+                        labelTheWorstClassOnMark.Content = massClassNumber[i];
+                    }
+                }
+            }
+
+        }
+
+        private bool validationNumber(TextCompositionEventArgs e)
+        {
+            string inputSymbol = e.Text.ToString();
+
+            if (!Regex.Match(inputSymbol, @"[0-9]|\.|,").Success)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private void textBoxIdDelete_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            
+                e.Handled = validationNumber(e);
+            
+        }
+
+        private void textBoxIdDeleteTeacher_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            validationNumber(e);
         }
     }
 }
+    

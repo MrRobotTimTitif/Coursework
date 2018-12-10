@@ -6,74 +6,106 @@
         xmlns:local="clr-namespace:SchoolDateBaseWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
-    <Grid x:Name="rightGrid" HorizontalAlignment="Left" Width="790"  Height="450">
+    <Grid x:Name="rightGrid" HorizontalAlignment="Left" Width="790" Margin="0,0,0,1">
+        <TabControl HorizontalAlignment="Left" Height="400" Margin="10,10,0,0" VerticalAlignment="Top" Width="774">
+            <TabItem x:Name="tabControlStudents"  Header="Students" Margin="-2,-2,-0.2,0"  Width="257" FontWeight="Bold" >
+                <Grid >
+                    <DataGrid x:Name="dataGridRigthContentStudents" BorderBrush="Black" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="759" Height="251" AutoGenerateColumns="False" FontWeight="Bold" >
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="100"/>
+                            <DataGridTextColumn Binding="{Binding FullName}" Header="FullName" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Class}" Header="Class" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Button x:Name="buttonCreateStudent" Content="Create Student" Margin="10,307,528.8,10" Click="createStudent_Click" Width="230" Height="55" FontWeight="Bold"/>
+                    <Button x:Name="buttonDeleteStudent" Content="Delete Student" HorizontalAlignment="Left" Margin="529,307,0,0" VerticalAlignment="Top" Width="230" Height="55" Click="buttonDeleteStudent_Click" FontWeight="Bold"/>
+                    <TextBox x:Name="textBoxIdDelete" HorizontalAlignment="Left" Margin="562,275,0,0"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142" Height="27" PreviewTextInput="textBoxIdDelete_PreviewTextInput"/>
+                    <Label Content="ID:" HorizontalAlignment="Left" Height="27" Margin="529,275,0,0" VerticalAlignment="Top" Width="28" FontWeight="Bold"/>
+                    <Label x:Name="testlabel" Content="" HorizontalAlignment="Left"  Margin="305,341,0,0" VerticalAlignment="Top" Width="219" Height="21"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabControlTeachers" Header="Teachers" Width="257" Margin="-0.8,-2,-0.2,0" FontWeight="Bold">
+                <Grid>
+                    <DataGrid x:Name="dataGridRigthContentTechers"  BorderBrush="Black" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="769" Height="244" AutoGenerateColumns="False" Background="White" Margin="0,0,-0.2,0" FontWeight="Bold" >
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="100"/>
+                            <DataGridTextColumn Binding="{Binding FullName}" Header="FullName" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Subject}" Header="Subject" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Classroom}" Header="ClassRoom" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Button x:Name="buttonCreateTeacher" Content="Create Teacher" Margin="10,307,528.8,10" Click="buttonCreateTeacher_Click" Width="230" Height="55" FontWeight="Bold"/>
+                    <Button x:Name="buttonDeleteTeacher" Content="Delete Teacher" HorizontalAlignment="Left" Margin="529,307,0,0" VerticalAlignment="Top" Width="230" Height="55" Click="buttonDeleteTeacher_Click" FontWeight="Bold" />
+                    <TextBox x:Name="textBoxIdDeleteTeacher" HorizontalAlignment="Left"  Margin="562,275,0,0"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142" Height="27" PreviewTextInput="textBoxIdDeleteTeacher_PreviewTextInput"/>
+                    <Label Content="ID:" HorizontalAlignment="Left" Height="27"   Margin="529,275,0,0"  VerticalAlignment="Top" Width="25" FontWeight="Bold"/>
+                    <Label x:Name="testlabelteacher" Content="" HorizontalAlignment="Left" Margin="305,341,0,0" VerticalAlignment="Top" Width="219" Height="21"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabControlPerformance" Header="Performance" Margin="0.4,-2,-129.8,0.2" FontWeight="Bold"  >
+                <Grid>
+                    <DataGrid x:Name="dataGridPerformance" BorderBrush="Black" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="595" Height="182"  AutoGenerateColumns="False" FontWeight="Bold">
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="100"/>
+                            <DataGridTextColumn Binding="{Binding NameStudent}" Header="NameStudent" Width="250"/>
+                            <DataGridTextColumn Binding="{Binding Maths}" Header="Maths" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Physics}" Header="Physics" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Biology}" Header="Biology" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <DataGrid x:Name="gridTest" HorizontalAlignment="Left" Height="0" Margin="336,241,0,0" VerticalAlignment="Top" Width="0"/>
+                    <Label Content="Id" HorizontalAlignment="Left" Margin="600,10,0,0" VerticalAlignment="Top" Width="24" FontWeight="Bold"/>
+                    <Label Content="Maths" HorizontalAlignment="Left" Margin="599,38,0,0" VerticalAlignment="Top" Width="50" FontWeight="Bold"/>
+                    <Label Content="Physics" HorizontalAlignment="Left" Margin="599,66,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <Label Content="Biology" HorizontalAlignment="Left" Margin="600,94,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+
+                    <TextBox x:Name="textBoxIdStudent" HorizontalAlignment="Left" Height="23" Margin="629,10,-0.2,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="140" FontWeight="Bold" PreviewTextInput="textBoxIdStudent_PreviewTextInput"/>
+                    <TextBox x:Name="textBoxSetMarkMaths" MaxLength="1" HorizontalAlignment="Left" Height="23" Margin="676,41,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="72" FontWeight="Bold" PreviewTextInput="textBoxSetMarkMaths_PreviewTextInput"/>
+                    <TextBox x:Name="textBoxSetMarkPhysics" MaxLength="1" HorizontalAlignment="Left" Height="23" Margin="676,69,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="72" FontWeight="Bold" PreviewTextInput="textBoxSetMarkPhysics_PreviewTextInput"/>
+                    <TextBox x:Name="textBoxSetMarkBiology" MaxLength="1" HorizontalAlignment="Left" Height="23" Margin="676,97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="72" FontWeight="Bold" PreviewTextInput="textBoxSetMarkBiology_PreviewTextInput"/>
+
+                    <Button x:Name="buttonSetMark" Content="Set Mark" HorizontalAlignment="Left" Height="41" Margin="599,141,0,0" VerticalAlignment="Top" Width="169" Click="buttonSetMark_Click" FontWeight="Bold"/>
+                    <Button x:Name="buttonPoPredmety" Content="По предмету" HorizontalAlignment="Left" Margin="610,191,0,0" VerticalAlignment="Top" Width="149" Click="buttonPoPredmety_Click" FontWeight="Bold" Height="23"/>
+                    <Button x:Name="buttonAverageMarks" Content="Средняя оценка класса" HorizontalAlignment="Left" Margin="77,194,0,0" VerticalAlignment="Top" Width="149" FontWeight="Bold" Click="buttonAverageMarks_Click" Height="30"/>
+                    <ComboBox x:Name="comboBoxSubgect"  SelectedIndex="0" HorizontalAlignment="Left" Margin="485,191,0,0" VerticalAlignment="Top" Width="120">
+
+                        <TextBlock>Maths</TextBlock>
+                        <TextBlock>Physics</TextBlock>
+                        <TextBlock>Biology</TextBlock>
+
+                    </ComboBox>
+                    <ComboBox x:Name="comboBoxAverageMarksInClass"  SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top" Width="62" Height="30">
+
+                        <TextBlock>A</TextBlock>
+                        <TextBlock>B</TextBlock>
+                        <TextBlock>C</TextBlock>
+                        <TextBlock>D</TextBlock>
+                        <TextBlock>F</TextBlock>
+
+                    </ComboBox>
+
+                    <Button x:Name="buttonLowSkillOnSubject" Content="Не успевающие ученики" HorizontalAlignment="Left" Margin="10,241,0,0" VerticalAlignment="Top" Width="155"  FontWeight="Bold" Click="buttonLowSkillOnSubject_Click" Height="30" RenderTransformOrigin="0.5,0.5"/>
+
+
+                    <Button x:Name="buttonLowMarksSubject" Content="Учителя с низкой успеваемостью" HorizontalAlignment="Left" Margin="208,241,0,0" VerticalAlignment="Top" Width="201" Click="buttonLowMarksSubject_Click" Height="30" />
+                    <Label x:Name="labelAverageMarksInClass" Content="" HorizontalAlignment="Left" Margin="231,194,0,0" VerticalAlignment="Top" Width="119.6" UseLayoutRounding="False" BorderThickness="1" BorderBrush="Black" Height="30" />
+                    <Button x:Name="buttonBestClassOnMark"  Content="Самый лучший класс" HorizontalAlignment="Left" Margin="10,289,0,0" VerticalAlignment="Top" Width="150" Click="buttonBestClassOnMark_Click" Height="30"/>
+                    <Button x:Name="buttonTheWorstClassOnMark" Content="Самый худший класс" HorizontalAlignment="Left"  Height="30" Margin="10,332,0,0" VerticalAlignment="Top" Width="150" Click="buttonTheWorstClassOnMark_Click"/>
+
+                    <Label x:Name="labelBestClassOnMark" Content="" HorizontalAlignment="Left" Margin="169,289,0,0" VerticalAlignment="Top" Width="120" BorderThickness="1" Height="30"  BorderBrush="Black"/>
+                    <Label  x:Name="labelTheWorstClassOnMark" Content="" Margin="169,332,479.8,10" BorderThickness="1" BorderBrush="Black" Height="30"  Width="120"/>
+                    <DataGrid x:Name="dataGridFilterPerformance"  HorizontalAlignment="Left" Height="143" Margin="485,219,0,0" VerticalAlignment="Top" Width="274"/>
+                </Grid>
+            </TabItem>
 
 
 
-        <Button x:Name="buttonShowStudents" Content="Students" HorizontalAlignment="Left" Height="43" Margin="5,68,0,0" VerticalAlignment="Top" Width="180" Click="buttonShowStudents_Click" Grid.Column="0"/>
-        <Button x:Name="buttonShowTeacher" Content="Teacher" HorizontalAlignment="Left" Height="49" Margin="5,133,0,0" VerticalAlignment="Top" Width="180" Click="buttonShowTeacher_Click" Grid.Column="0"/>
-        <Button x:Name="buttonShowPerfomance" Content="Performance" HorizontalAlignment="Left" Height="49" Margin="5,201,0,0" VerticalAlignment="Top" Width="180" Click="buttonShowPerformance_Click" Grid.Column="0"/>
-
-
-        <Grid x:Name="gridRightContentStudents" Visibility="Hidden" HorizontalAlignment="Left" Height="407" Margin="239,10,0,0" VerticalAlignment="Top" Width="551">
-            <DataGrid x:Name="dataGridRigthContentStudents" HorizontalAlignment="Left" Height="282" VerticalAlignment="Top" Width="522" AutoGenerateColumns="False" >
-                <DataGrid.Columns >
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="100"/>
-                    <DataGridTextColumn Binding="{Binding FullName}" Header="FullName" Width="*"/>
-                    <DataGridTextColumn Binding="{Binding Class}" Header="Class" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-
-            <Button x:Name="buttonCreateStudent" Content="Create Student" Margin="0,345,345,16" Click="createStudent_Click" />
-            <Button x:Name="buttonDeleteStudent" Content="Delete Student" HorizontalAlignment="Left" Margin="303,345,0,0" VerticalAlignment="Top" Width="219" Height="46" Click="buttonDeleteStudent_Click"/>
-            <TextBox x:Name="textBoxIdDelete" HorizontalAlignment="Left" Height="27" Margin="380,313,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142"/>
-            <Label Content="ID:" HorizontalAlignment="Left" Height="27" Margin="303,313,0,0" VerticalAlignment="Top" Width="92"/>
-            <Label x:Name="testlabel" Content="Label" HorizontalAlignment="Left" Height="21" Margin="303,287,0,0" VerticalAlignment="Top" Width="219"/>
-        </Grid>
-        <Grid x:Name="gridRightContentTeachers" Visibility="Hidden" HorizontalAlignment="Left" Height="407" Margin="239,10,0,0" VerticalAlignment="Top" Width="551" >
-            <DataGrid x:Name="dataGridRigthContentTechers"  HorizontalAlignment="Left" Height="282" VerticalAlignment="Top" Width="522" AutoGenerateColumns="False" >
-                <DataGrid.Columns >
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="100"/>
-                    <DataGridTextColumn Binding="{Binding FullName}" Header="FullName" Width="*"/>
-                    <DataGridTextColumn Binding="{Binding Subject}" Header="Subject" Width="*"/>
-                    <DataGridTextColumn Binding="{Binding Classroom}" Header="ClassRoom" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-
-            <Button x:Name="buttonCreateTeacher" Content="Create Teacher" Margin="0,345,345,16" Click="buttonCreateTeacher_Click" />
-            <Button x:Name="buttonDeleteTeacher" Content="Delete Teacher" HorizontalAlignment="Left" Margin="303,345,0,0" VerticalAlignment="Top" Width="219" Height="46" Click="buttonDeleteTeacher_Click" />
-            <TextBox x:Name="textBoxIdDeleteTeacher" HorizontalAlignment="Left" Height="27" Margin="380,313,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142"/>
-            <Label Content="ID:" HorizontalAlignment="Left" Height="27" Margin="303,313,0,0" VerticalAlignment="Top" Width="92"/>
-            <Label x:Name="testlabelteacher" Content="Label" HorizontalAlignment="Left" Height="21" Margin="303,287,0,0" VerticalAlignment="Top" Width="219"/>
-        </Grid>
-        <Grid x:Name="gridRightContentPerformance"  HorizontalAlignment="Left" Height="407" Margin="239,10,0,0" VerticalAlignment="Top" Width="551">
-            <DataGrid x:Name="dataGridRigthContentPerformance"  HorizontalAlignment="Left" Height="282" VerticalAlignment="Top" Width="522"  AutoGenerateColumns="False">
-                <DataGrid.Columns >
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="100"/>
-                    <DataGridTextColumn Binding="{Binding NameStudent}" Header="NameStudent" Width="*"/>
-                    <DataGridTextColumn Binding="{Binding Subject1}" Header="Subject1" Width="*"/>
-                    <DataGridTextColumn Binding="{Binding Subject2}" Header="Subject2" Width="*"/>
-                    <DataGridTextColumn Binding="{Binding Subject3}" Header="Subject3" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-
-            <Label Content="Maths" HorizontalAlignment="Left" Margin="20,319,0,0" VerticalAlignment="Top" Width="50"/>
-            <Label Content="Physics" HorizontalAlignment="Left" Margin="20,345,0,0" VerticalAlignment="Top"/>
-            <Label Content="Biology" HorizontalAlignment="Left" Margin="20,371,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="textBoxSetMarkMaths" HorizontalAlignment="Left" Height="23" Margin="138,322,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-            <TextBox x:Name="textBoxSetMarkPhysics" HorizontalAlignment="Left" Height="23" Margin="138,348,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-            <TextBox x:Name="textBoxSetMarkBiology" HorizontalAlignment="Left" Height="23" Margin="138,374,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-            <Button x:Name="buttonSetMark" Content="Set Mark" HorizontalAlignment="Left" Height="97" Margin="384,300,0,0" VerticalAlignment="Top" Width="138" Click="buttonSetMark_Click"/>
-            <Label Content="Id" HorizontalAlignment="Left" Margin="20,289,0,0" VerticalAlignment="Top" Width="50"/>
-            <TextBox x:Name="textBoxIdStudent" HorizontalAlignment="Left" Height="23" Margin="138,292,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-
-
-
-
-        </Grid>
-     
+        </TabControl>
 
 
 
     </Grid>
+
 </Window>
